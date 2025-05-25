@@ -2,52 +2,6 @@ package org.sistemanomina;
 
 import java.util.*;
 
-class Empleado {
-    String nombre;
-    String tipoPago; // Quincenal o Mensual
-    double salarioBase;
-    double horasExtras;
-    double horasNocturnas;
-    double horasDominicales;
-    double descuentoParafiscales;
-
-    public Empleado(String nombre, String tipoPago, double salarioBase,
-                    double horasExtras, double horasNocturnas,
-                    double horasDominicales, double descuentoParafiscales) {
-        this.nombre = nombre;
-        this.tipoPago = tipoPago;
-        this.salarioBase = salarioBase;
-        this.horasExtras = horasExtras;
-        this.horasNocturnas = horasNocturnas;
-        this.horasDominicales = horasDominicales;
-        this.descuentoParafiscales = descuentoParafiscales;
-    }
-
-    public double calcularSalarioBruto() {
-        return salarioBase + (horasExtras * 1.25) + (horasNocturnas * 1.35) + (horasDominicales * 1.75);
-    }
-
-    public double calcularDeducciones() {
-        double salud = salarioBase * 0.04;
-        double pension = salarioBase * 0.04;
-        return salud + pension + descuentoParafiscales;
-    }
-
-    public double calcularSalarioNeto() {
-        return calcularSalarioBruto() - calcularDeducciones();
-    }
-
-    public void mostrarResumenPago() {
-        System.out.println("\n--- Resumen de Pago ---");
-        System.out.println("Empleado: " + nombre);
-        System.out.println("Tipo de pago: " + tipoPago);
-        System.out.println("Salario Base: $" + salarioBase);
-        System.out.println("Salario Bruto: $" + calcularSalarioBruto());
-        System.out.println("Deducciones Totales: $" + calcularDeducciones());
-        System.out.println("Salario Neto: $" + calcularSalarioNeto());
-    }
-}
-
 public class SistemaNomina {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -63,44 +17,55 @@ public class SistemaNomina {
             int opcion = sc.nextInt();
             sc.nextLine(); // limpiar buffer
 
-            if (opcion == 1) {
-                System.out.print("Nombre del empleado: ");
-                String nombre = sc.nextLine();
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Nombre del empleado: ");
+                    String nombre = sc.nextLine();
 
-                System.out.print("Tipo de pago (Quincenal/Mensual): ");
-                String tipoPago = sc.nextLine();
+                    System.out.print("Cédula: ");
+                    String cedula = sc.nextLine();
 
-                System.out.print("Salario base: ");
-                double salarioBase = sc.nextDouble();
+                    System.out.print("Edad: ");
+                    int edad = sc.nextInt();
 
-                System.out.print("Horas extras: ");
-                double horasExtras = sc.nextDouble();
+                    sc.nextLine(); // limpiar buffer
+                    System.out.print("Tipo de pago (Quincenal/Mensual): ");
+                    String tipoPago = sc.nextLine();
 
-                System.out.print("Horas nocturnas: ");
-                double horasNocturnas = sc.nextDouble();
+                    System.out.print("Salario base: ");
+                    double salarioBase = sc.nextDouble();
 
-                System.out.print("Horas dominicales: ");
-                double horasDominicales = sc.nextDouble();
+                    System.out.print("Horas extras: ");
+                    double horasExtras = sc.nextDouble();
 
-                System.out.print("Descuento por parafiscales: ");
-                double descuentoParafiscales = sc.nextDouble();
+                    System.out.print("Horas nocturnas: ");
+                    double horasNocturnas = sc.nextDouble();
 
-                Empleado emp = new Empleado(nombre, tipoPago, salarioBase,
-                        horasExtras, horasNocturnas, horasDominicales, descuentoParafiscales);
-                empleados.add(emp);
-                emp.mostrarResumenPago();
-            } else if (opcion == 2) {
-                for (Empleado emp : empleados) {
+                    System.out.print("Horas dominicales: ");
+                    double horasDominicales = sc.nextDouble();
+
+                    System.out.print("Descuento por parafiscales: ");
+                    double descuentoParafiscales = sc.nextDouble();
+
+                    Empleado emp = new Empleado(nombre, cedula, edad, tipoPago, salarioBase,
+                            horasExtras, horasNocturnas, horasDominicales, descuentoParafiscales);
+                    empleados.add(emp);
                     emp.mostrarResumenPago();
                 }
-            } else if (opcion == 3) {
-                System.out.println("Saliendo del sistema.");
-                break;
-            } else {
-                System.out.println("Opción no válida.");
+                case 2 -> {
+                    if (empleados.isEmpty()) {
+                        System.out.println("No hay empleados registrados.");
+                    } else {
+                        empleados.forEach(Empleado::mostrarResumenPago);
+                    }
+                }
+                case 3 -> {
+                    System.out.println("Saliendo del sistema.");
+                    sc.close();
+                    return;
+                }
+                default -> System.out.println("Opción no válida.");
             }
         }
-
-        sc.close();
     }
 }
