@@ -19,7 +19,7 @@ public class Empleado extends Persona {
         this.horasDominicales = horasDominicales;
         this.descuentoParafiscales = descuentoParafiscales;
     }
-
+    //permite el calculo del salario Neto en funcion a los porcentajes dados por el gobierno en parafiscales
     public double calcularSalarioBruto() {
         return salarioBase + (horasExtras * 1.25) + (horasNocturnas * 1.35) + (horasDominicales * 1.75);
     }
@@ -33,7 +33,7 @@ public class Empleado extends Persona {
     public double calcularSalarioNeto() {
         return calcularSalarioBruto() - calcularDeducciones();
     }
-
+    //salida de la informacion digitada al sistema
     public void mostrarResumenPago() {
         System.out.println("\n--- Resumen de Pago ---");
         System.out.println("Nombre: " + getNombre());

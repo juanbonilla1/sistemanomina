@@ -1,6 +1,7 @@
 package org.sistemanomina;
 
 public class Persona {
+    //plantilla para recolectar datos basicos
     protected String nombre;
     protected String cedula;
     protected int edad;

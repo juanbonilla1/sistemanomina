@@ -5,10 +5,12 @@ import java.util.*;
 public class SistemaNomina {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        //crea una lista donde se almacenaran los empleados
         List<Empleado> empleados = new ArrayList<>();
 
         System.out.println("=== Sistema de Nómina ===");
 
+        //menu del sistema
         while (true) {
             System.out.println("\n1. Registrar empleado");
             System.out.println("2. Ver pagos registrados");
@@ -68,4 +70,5 @@ public class SistemaNomina {
             }
         }
     }
+
 }
